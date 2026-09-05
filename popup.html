@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<title>Chess Opponent Scout</title>
+<style>
+  body {
+    all: initial;
+    display: block;
+    width: 260px;
+    background: #1C1712;
+    color: #EDE6D6;
+    font-family: -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+    font-size: 13px;
+    padding: 16px;
+    direction: rtl;
+    text-align: right;
+  }
+  h1 {
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 15px;
+    color: #C9A66B;
+    margin: 0 0 4px;
+  }
+  p.sub {
+    color: #A79C87;
+    font-size: 11px;
+    margin: 0 0 14px;
+  }
+  label {
+    display: block;
+    font-size: 12px;
+    color: #A79C87;
+    margin-bottom: 4px;
+  }
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    background: #2C2419;
+    border: 1px solid #3B3020;
+    border-radius: 6px;
+    color: #EDE6D6;
+    padding: 7px 9px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    direction: ltr;
+    text-align: right;
+  }
+  input:focus {
+    outline: none;
+    border-color: #C9A66B;
+  }
+  button {
+    width: 100%;
+    background: #C9A66B;
+    color: #1C1712;
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:hover {
+    filter: brightness(1.08);
+  }
+  #status {
+    margin-top: 10px;
+    font-size: 11px;
+    color: #7C9473;
+    min-height: 14px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <h1>Chess Opponent Scout</h1>
+  <p class="sub">سجّل اسمك في كل منصة حتى تتعرّف الإضافة تلقائياً على اسم الخصم.</p>
+
+  <label for="lichessName">اسمك على Lichess</label>
+  <input type="text" id="lichessName" placeholder="username" />
+
+  <label for="chesscomName">اسمك على Chess.com</label>
+  <input type="text" id="chesscomName" placeholder="username" />
+
+  <button id="save">حفظ</button>
+  <div id="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+/* Chess Opponent Scout — overlay panel
+   Token system:
+   --cos-bg          #1C1712  deep espresso, quiet against any board theme
+   --cos-panel       #241E16  panel surface
+   --cos-panel-alt   #2C2419  secondary surface (rows, inputs)
+   --cos-border      #3B3020  hairline border
+   --cos-text        #EDE6D6  warm ivory text
+   --cos-text-muted  #A79C87  secondary text
+   --cos-accent      #C9A66B  brass, used sparingly (header, active states)
+   --cos-win         #7C9473  muted sage — wins / improving
+   --cos-loss        #B0554A  muted rust — losses / declining
+   --cos-draw        #A79C87  neutral
+*/
+
+#cos-launcher {
+  all: initial;
+  position: fixed;
+  z-index: 2147483000;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #241E16;
+  border: 1px solid #3B3020;
+  color: #C9A66B;
+  font: 20px/48px "Iowan Old Style", "Georgia", serif;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+}
+#cos-launcher:hover {
+  border-color: #C9A66B;
+}
+
+#cos-panel {
+  all: initial;
+  position: fixed;
+  z-index: 2147483001;
+  bottom: 84px;
+  right: 24px;
+  width: 340px;
+  max-height: 82vh;
+  overflow-y: auto;
+  background: #241E16;
+  border: 1px solid #3B3020;
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  font-family: -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+  color: #EDE6D6;
+  direction: rtl;
+  text-align: right;
+  font-size: 13px;
+  line-height: 1.5;
+}
+#cos-panel * {
+  box-sizing: border-box;
+  font-family: inherit;
+  color: inherit;
+}
+
+#cos-panel .cos-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid #3B3020;
+}
+#cos-panel .cos-title {
+  font-family: "Iowan Old Style", "Georgia", serif;
+  font-size: 15px;
+  letter-spacing: 0.2px;
+  color: #C9A66B;
+}
+#cos-panel .cos-head {
+  cursor: grab;
+  user-select: none;
+}
+#cos-panel .cos-headicons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#cos-panel .cos-close,
+#cos-panel .cos-gear {
+  cursor: pointer;
+  color: #A79C87;
+  font-size: 15px;
+  padding: 0 2px;
+}
+#cos-panel .cos-close:hover,
+#cos-panel .cos-gear:hover {
+  color: #EDE6D6;
+}
+
+#cos-panel .cos-hidden {
+  display: none !important;
+}
+
+#cos-panel .cos-settings-row {
+  background: #2C2419;
+  border: 1px solid #3B3020;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+}
+#cos-panel button.cos-btn-small {
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+#cos-panel .cos-alarm {
+  background: rgba(176, 85, 74, 0.18);
+  border: 1px solid #B0554A;
+  color: #EDE6D6;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  margin-bottom: 12px;
+  animation: cos-pulse 1.6s ease-in-out infinite;
+}
+@keyframes cos-pulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(176, 85, 74, 0); }
+  50% { box-shadow: 0 0 10px rgba(176, 85, 74, 0.45); }
+}
+
+#cos-panel .cos-clockrow {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+#cos-panel .cos-clock {
+  flex: 1;
+  background: #2C2419;
+  border: 1px solid #3B3020;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+#cos-panel .cos-clock-label {
+  font-size: 11px;
+  color: #A79C87;
+  margin-bottom: 4px;
+}
+#cos-panel .cos-clock-time {
+  font-family: "Iowan Old Style", "Georgia", serif;
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+  color: #EDE6D6;
+}
+#cos-panel .cos-clock.cos-clock-active {
+  border-color: #C9A66B;
+  background: rgba(201, 166, 107, 0.12);
+}
+#cos-panel .cos-clock.cos-clock-active .cos-clock-time {
+  color: #C9A66B;
+}
+#cos-panel .cos-clock.cos-clock-low .cos-clock-time {
+  color: #B0554A;
+}
+
+#cos-panel .cos-swaprow {
+  text-align: center;
+  margin-top: 6px;
+}
+#cos-panel .cos-link-btn {
+  background: none;
+  border: none;
+  color: #A79C87;
+  font-size: 11px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 4px;
+}
+#cos-panel .cos-link-btn:hover {
+  color: #EDE6D6;
+}
+
+#cos-panel .cos-badgerow {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+#cos-panel .cos-badge {
+  flex: 1;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #2C2419;
+  border: 1px solid #3B3020;
+}
+#cos-panel .cos-badge-label {
+  font-size: 10px;
+  color: #A79C87;
+  margin-bottom: 3px;
+}
+#cos-panel .cos-badge-value {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+#cos-panel .cos-badge-detail {
+  font-size: 10.5px;
+  color: #A79C87;
+  line-height: 1.4;
+}
+#cos-panel .cos-badge.cos-state-time-trouble .cos-badge-value,
+#cos-panel .cos-badge.cos-state-rushing .cos-badge-value {
+  color: #B0554A;
+}
+#cos-panel .cos-badge.cos-state-calm .cos-badge-value,
+#cos-panel .cos-badge.cos-state-deep-think .cos-badge-value {
+  color: #7C9473;
+}
+#cos-panel .cos-badge.cos-state-steady .cos-badge-value,
+#cos-panel .cos-badge.cos-state-gathering .cos-badge-value {
+  color: #C9A66B;
+}
+
+#cos-panel .cos-body {
+  padding: 14px;
+}
+
+#cos-panel .cos-field-label {
+  font-size: 12px;
+  color: #A79C87;
+  margin-bottom: 6px;
+  display: block;
+}
+#cos-panel .cos-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+#cos-panel input[type="text"] {
+  flex: 1;
+  background: #2C2419;
+  border: 1px solid #3B3020;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+  direction: ltr;
+  text-align: right;
+}
+#cos-panel input[type="text"]:focus {
+  outline: none;
+  border-color: #C9A66B;
+}
+#cos-panel .cos-hint {
+  font-size: 11px;
+  color: #A79C87;
+  margin-bottom: 12px;
+}
+
+#cos-panel button.cos-btn {
+  background: #C9A66B;
+  color: #1C1712;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+#cos-panel button.cos-btn:hover {
+  filter: brightness(1.08);
+}
+#cos-panel button.cos-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+#cos-panel .cos-status {
+  font-size: 12px;
+  color: #A79C87;
+  margin: 4px 0 10px;
+  min-height: 16px;
+}
+#cos-panel .cos-status.cos-error {
+  color: #B0554A;
+}
+
+#cos-panel .cos-section {
+  border-top: 1px solid #3B3020;
+  padding-top: 12px;
+  margin-top: 12px;
+}
+#cos-panel .cos-section-title {
+  font-size: 12px;
+  color: #A79C87;
+  margin-bottom: 8px;
+}
+
+#cos-panel .cos-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+#cos-panel .cos-winrate {
+  font-family: "Iowan Old Style", "Georgia", serif;
+  font-size: 28px;
+  color: #C9A66B;
+  font-variant-numeric: tabular-nums;
+}
+#cos-panel .cos-record {
+  font-size: 12px;
+  color: #A79C87;
+  font-variant-numeric: tabular-nums;
+}
+#cos-panel .cos-record b.cos-w { color: #7C9473; font-weight: 600; }
+#cos-panel .cos-record b.cos-l { color: #B0554A; font-weight: 600; }
+#cos-panel .cos-record b.cos-d { color: #A79C87; font-weight: 600; }
+
+#cos-panel .cos-trend {
+  margin-top: 6px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#cos-panel .cos-trend .cos-arrow {
+  font-size: 14px;
+}
+#cos-panel .cos-trend.cos-improving .cos-arrow { color: #7C9473; }
+#cos-panel .cos-trend.cos-declining .cos-arrow { color: #B0554A; }
+#cos-panel .cos-trend.cos-stable .cos-arrow { color: #A79C87; }
+
+#cos-panel .cos-opening-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #2C2419;
+  gap: 8px;
+}
+#cos-panel .cos-opening-row:last-child {
+  border-bottom: none;
+}
+#cos-panel .cos-opening-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#cos-panel .cos-opening-score {
+  font-variant-numeric: tabular-nums;
+  color: #A79C87;
+  white-space: nowrap;
+}
+#cos-panel .cos-opening-row.cos-weak .cos-opening-score { color: #7C9473; }
+#cos-panel .cos-opening-row.cos-strong .cos-opening-score { color: #B0554A; }
+
+#cos-panel .cos-empty {
+  color: #A79C87;
+  font-size: 12px;
+}
